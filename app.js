@@ -17,7 +17,7 @@ app.on('ready', function () {
     // Create the main window for the app
     mainWindow = new BrowserWindow({
         title: "Messenger",
-        icon: __dirname + '/icon.icns',
+        icon: __dirname + '/icon.ico',
         width: 410,
         height: 610,
         minWidth: 410,

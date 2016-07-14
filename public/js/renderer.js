@@ -30,7 +30,6 @@ $(document).ready(function () {
     tb.addEventListener('dom-ready', function () {
         tb.openDevTools();
         tb.insertCSS(` *:focus{outline:none;} body {overflow-y: hidden !important;} ._210n{bottom: 10px !important;}`)
-
     });
     tb.addEventListener('page-title-updated', function () {
         checkNotifications();
@@ -50,20 +49,21 @@ function checkNotifications() {
 let notif = [
     {
         title: "New message",
-        body: ""
+        body: "New message"
     }]
-let bootNotif = false;
+let bootNotif = true;
 
 function sendNotification(m) {
 //Title auto pakeicia jeigu yra zinute
-    if(!bootNotif){
-        notif[0].body = m;
-        new Notification(notif[0].title, notif[0]);
-        bootNotif = true;
-    }
+//     if(!bootNotif){
+//         notif[0].body = m;
+//         new Notification(notif[0].title, notif[0]);
+//         bootNotif = true;
+//     }
 
-    if (m != "0" && m != "Messenger" && m != notif[0].body && bootNotif){
-        notif[0].body = m;
+    const substring = "send a message";
+    if (m != "0" && m.indexOf(substring) > -1 && m.indexOf("(") == -1 && m != notif[0].title && bootNotif){
+        notif[0].title = m;
         new Notification(notif[0].title, notif[0]);
     }
 }
