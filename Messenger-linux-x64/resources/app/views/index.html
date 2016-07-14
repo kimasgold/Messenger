@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fasp</title>
+    <meta charset="UTF-8">
+    <link href="../public/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="toolbar">
+    <i class="logo"></i>
+    <h1>Messenger(Unofficial)</h1>
+    <i class="mini"></i>
+    <i class="max"></i>
+    <i class="close"></i>
+</div>
+<div id="main-view">
+    <img src="../public/img/loading.gif" class="loading"/>
+    <webview id="fb-view" class="viewer" autosize="on" src="https://www.messenger.com/login"></webview>
+</div>
+
+</body>
+<script>
+    require('../public/js/renderer.js')
+</script>
+</html>
