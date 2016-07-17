@@ -1,6 +1,7 @@
 const $ = require('jquery');
 const {remote} = require('electron');
 const sleepTimeout = 60;
+
 $(document).ready(function () {
 
 
@@ -31,16 +32,18 @@ $(document).ready(function () {
         tb.openDevTools();
         tb.insertCSS(` *:focus{outline:none;} body {overflow-y: hidden !important;} ._210n{bottom: 10px !important;}`)
     });
+
     tb.addEventListener('page-title-updated', function () {
-        checkNotifications();
+        console.log(document.querySelector('#fb-view').getTitle());
+        sendNotification(document.querySelector('#fb-view').getTitle())
     })
 
 })
 
 function checkNotifications() {
 
-    console.log(document.querySelector('#fb-view').getTitle());
-    sendNotification(document.querySelector('#fb-view').getTitle())
+
+
     // setTimeout(function () {
     //     checkNotifications();
     // }, sleepTimeout * 1000);
