@@ -1,5 +1,6 @@
 // Require the libraries used in the app
-const {app, Tray, electron, Menu, BrowserWindow} = require('electron')
+const path = require('path')
+const {app, Tray, electron, Menu, BrowserWindow, ipcMain} = require('electron')
 // Module to control application life.
 // const app = electron.app
 // Module to create native browser window.
@@ -41,16 +42,21 @@ app.on('ready', () => {
         mainWindow = null;
     });
 
-
-
-        tray = new Tray('icon.png')
-        const contextMenu = Menu.buildFromTemplate([
-            {label: 'Item1', type: 'radio'},
-            {label: 'Item2', type: 'radio'},
-            {label: 'Item3', type: 'radio', checked: true},
-            {label: 'Item4', type: 'radio'}
-        ]);
-        tray.setToolTip('This is my application.')
-        tray.setContextMenu(contextMenu)
-
 });
+
+let appIcon = null
+
+ipc.on('put-in-tray', function (event) {
+    const iconName = process.platform === 'win32' ? 'icon.png' : 'icon.png'
+    const iconPath = path.join(__dirname, iconName)
+    appIcon = new Tray(iconPath)
+    const contextMenu = Menu.buildFromTemplate([{
+        label: 'Remove',
+        click: function () {
+            event.sender.send('tray-removed')
+            appIcon.destroy()
+        }
+    }])
+    appIcon.setToolTip('Electron Demo in the tray.')
+    appIcon.setContextMenu(contextMenu)
+})

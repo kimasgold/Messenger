@@ -1,5 +1,10 @@
 const $ = require('jquery');
-const {remote} = require('electron');
+const {remote, ipcRenderer} = require('electron');
+
+const ipc = require('electron').ipcRenderer
+
+const trayBtn = document.getElementById('put-in-tray')
+let trayOn = false
 const sleepTimeout = 60;
 
 $(document).ready(function () {
@@ -70,3 +75,8 @@ function sendNotification(m) {
         new Notification(notif[0].title, notif[0]);
     }
 }
+
+ipcRenderer.on('tray-removed', function () {
+    trayOn = false
+    document.getElementById('tray-countdown').innerHTML = ''
+})
